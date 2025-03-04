@@ -80,17 +80,19 @@ io.on("connection", (socket) => {
   });
 
   socket.emit("gameState", { board, currentTurn });
-
+  
   socket.on("playerMove", ({ index, symbol }) => {
     if (board[index] == null && symbol === currentTurn) {
       board[index] = symbol;
       currentTurn = currentTurn === "X" ? "O" : "X";
+      console.log("server reached");
 
       const winner = checkWinner(board);
       if (winner) {
         io.emit("gameState", { board, currentTurn });
         io.emit("gameOver", { winner });
       } else {
+        console.log("emit");
         io.emit("gameState", { board, currentTurn });
       }
     }
