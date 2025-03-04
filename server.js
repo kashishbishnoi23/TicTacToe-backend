@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
-
+const cors = require("cors");
 const path = require("path");
-
 const http = require("http");
 const { Server } = require("socket.io");
+
+app.use(cors({ origin: "https://kashishbishnoi23.github.io", credentials: true }));
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://kashishbishnoi23.github.io",
     methods: ["GET", "POST"]
   }
 });
